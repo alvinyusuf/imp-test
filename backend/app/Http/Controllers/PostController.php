@@ -13,7 +13,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::paginate(10);
+
+        return response()->json([
+            'message' => 'Posts retrieved successfully',
+            'data' => $posts,
+        ], 200);
     }
 
     /**
@@ -29,7 +34,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create($request->validated());
+
+        return response()->json([
+            'message' => 'Post created successfully',
+            'data' => $post,
+        ], 201);
     }
 
     /**
@@ -37,7 +47,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return response()->json([
+            'message' => 'Post retrieved successfully',
+            'data' => $post,
+        ], 200);
     }
 
     /**
@@ -53,7 +66,12 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return response()->json([
+            'message' => 'Post updated successfully',
+            'data' => $post,
+        ], 200);
     }
 
     /**
@@ -61,6 +79,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->json([
+            'message' => 'Post deleted successfully',
+        ], 204);
     }
 }
