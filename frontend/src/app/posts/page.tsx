@@ -3,7 +3,7 @@
 import { useDeletePost } from "@/hooks/useDeletePost"
 import { usePaginatedPosts } from "@/hooks/usePaginatedPosts"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Pencil, Plus, Trash } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useMemo, useState } from "react"
 
@@ -57,13 +57,13 @@ export default function Posts() {
             href={`/posts/${row.original.id}`}
             className="btn btn-sm btn-warning"
           >
-            Edit
+            <Pencil size={16} /> Edit
           </Link>
           <button
             onClick={(e) => handleDelete(e, Number(row.original.id))}
             className="btn btn-sm btn-error"
           >
-            Delete
+            <Trash size={16} /> Delete
           </button>
         </div>
       ),
@@ -106,7 +106,7 @@ export default function Posts() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <Link href={`/posts/create`} className="btn btn-primary">
-          Add Post
+          <Plus size={16} /> Add Post
         </Link>
       </div>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
