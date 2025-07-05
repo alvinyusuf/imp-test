@@ -80,13 +80,13 @@ http://127.0.0.1:8000/api/auth/register/
 ```
 
 Body:
-<pre>
+```
   {
     "username": "example",
     "email": "example@mail.com",
     "password": "yourpassword"
   }
-</pre>
+```
 
 Response:
 <pre>
@@ -106,12 +106,12 @@ http://127.0.0.1:8000/api/auth/login/
 ```
 
 Body:
-<pre>  
+```  
   { 
     "username": "example",
     "password": "yourpassword"
   }
-</pre>
+```
 
 Response:
 <pre>
@@ -128,16 +128,16 @@ http://127.0.0.1:8000/api/auth/logout/
 ```
 
 Headers:
-<pre>
+```
   Authorization: Bearer <access_token>
-</pre>
+```
 
 Body:
-<pre>
+```
   {
     "refresh_token": "refresh_token_here"
   }
-</pre>
+```
 
 ### Token Verify
 POST
@@ -146,11 +146,11 @@ http://127.0.0.1:8000/api/auth/verify/
 ```
 
 Body:
-<pre>
+```
   {
     "token": "access_token_here"
   }
-</pre>
+```
 
 Response:
 <pre>
@@ -164,11 +164,11 @@ http://127.0.0.1:8000/api/auth/refresh/
 ```
 
 Body:
-<pre>
+```
   {
     "refresh": "refresh_token_here"
   }
-</pre>
+```
 
 Response:
 <pre>
