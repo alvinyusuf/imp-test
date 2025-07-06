@@ -29,7 +29,12 @@ cd imp-test
 ```
 cd backend
 composer install
+
+# Windows
+copy .env.example .env
+# Linux
 cp .env.example .env
+
 php artisan key:generate
 
 php artisan migrate
@@ -45,6 +50,7 @@ npm run dev #Frontend Ready
 ```
 
 # Auth (Django)
+### Run di port 5000 (supaya tidak bentrok dengan port backend dan sesuai dengan .env frontend)
 ```
 cd auth-service
 python -m venv env
@@ -52,19 +58,18 @@ python -m venv env
 # Linux
 source env/bin/activate
 # Windows 
-env\\Scripts\\activate
+env\Scripts\activate
 
 pip install -r requirements.txt
 
 python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver
+python manage.py migrate # Yes saja untuk membuat db sqlite baru
+python manage.py runserver 5000 # Auth Ready
 ```
 
 
 # 🧪 Testing
 Gunakan Postman / Thunder Client untuk testing auth
-Untuk CRUD backend (laravel) sudah bisa langsung dicoba melalui website frontend (NextJS)
 default akses frontend
 ```
 http://127.0.0.1:3000
