@@ -18,6 +18,8 @@
 
 ## 🔧 Instalasi dan Setup
 
+### Pastikan port 3000, 5000, 8000 kosong untuk menjalankan service ketiganya
+
 ```bash
 git clone https://github.com/alvinyusuf/imp-test.git
 
