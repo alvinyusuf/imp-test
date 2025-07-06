@@ -5,12 +5,12 @@ import { usePaginatedPosts } from "@/hooks/usePaginatedPosts"
 import { usePostFilter } from "@/hooks/usePostFilter"
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { useCallback, useState } from "react"
-import { createPostColumns } from "./columns"
-import Pagination from "./pagination"
-import { ErrorState, LoadingState } from "./post-states"
-import PostHeader from "./post-header"
-import PostSearch from "./post-search"
-import PostTable from "./post-table"
+import { createPostColumns } from "./components/columns"
+import Pagination from "./components/pagination"
+import { ErrorState, LoadingState } from "./components/states"
+import PostHeader from "./components/header"
+import PostSearch from "./components/search"
+import PostTable from "./components/table"
 
 export default function Posts() {
   const [page, setPage] = useState<number>(1)

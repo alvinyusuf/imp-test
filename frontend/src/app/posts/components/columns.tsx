@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import PostActions from "./post-action"
+import PostActions from "./action"
 
 type Post = {
   id: string

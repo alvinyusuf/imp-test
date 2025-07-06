@@ -10,12 +10,12 @@ type PostActionsProps = {
 export default function PostActions({ id, onDelete }: PostActionsProps) {
   return (
     <div className="flex items-center gap-2">
-      <Link href={`/posts/${id}`} className="btn btn-sm btn-warning">
+      <Link href={`/posts/${id}`} className="btn btn-xs btn-warning">
         <Pencil size={16} /> Edit
       </Link>
       <button
         onClick={(e) => onDelete(e, Number(id))}
-        className="btn btn-sm btn-error"
+        className="btn btn-xs btn-error"
       >
         <Trash size={16} /> Delete
       </button>
