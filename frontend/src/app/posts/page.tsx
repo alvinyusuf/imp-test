@@ -3,10 +3,11 @@
 import { useDeletePost } from "@/hooks/useDeletePost"
 import { usePaginatedPosts } from "@/hooks/usePaginatedPosts"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useMemo, useState } from "react"
 import PostActions from "./post-action"
+import Pagination from "./pagination"
 
 type Post = {
   id: string
@@ -129,23 +130,11 @@ export default function Posts() {
             </tbody>
         </table>
       </div>
-      <div className="mt-4 flex justify-end gap-2 w-full">
-        <button
-          className="btn btn-sm"
-          onClick={() => setPage((old) => Math.max(old - 1, 1))}
-          disabled={page === 1}
-        >
-          <ChevronLeft size={16} /> Previous
-        </button>
-        <span>Page {page} of {data?.last_page}</span>
-        <button
-          className="btn btn-sm"
-          onClick={() => setPage((old) => (data && old < data.last_page ? old + 1 : old))}
-          disabled={data ? page >= data.last_page : true}
-        >
-           Next <ChevronRight size={16} />
-        </button>
-      </div>
+      <Pagination
+        page={page}
+        lastPage={data?.last_page || 1}
+        onPageChange={setPage}
+      />
     </div>
   )
 }
