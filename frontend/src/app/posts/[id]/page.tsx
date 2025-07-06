@@ -1,14 +1,24 @@
 "use client";
 
+import Alert from "@/components/alert";
+import BackButton from "@/components/back-button";
 import { useDeletePost } from "@/hooks/useDeletePost";
 import { usePost } from "@/hooks/usePost";
 import { useUpdatePost } from "@/hooks/useUpdatePost";
+import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+type Flash = {
+  id: number;
+  message: string;
+};
 
 export default function Page() {
   const { id } = useParams();
   const postId = Number(id);
+  const modal = useRef<HTMLDialogElement>(null);
+  
 
   const router = useRouter();
 
@@ -16,9 +26,10 @@ export default function Page() {
   const { mutate: updatePost, isPending } = useUpdatePost();
   const { mutate: deletePost } = useDeletePost();
 
-  const [edit, setEdit] = useState(false);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [edit, setEdit] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [flash, setFlash] = useState<Flash | null>(null);
 
   useEffect(() => {
     if (data) {
@@ -46,7 +57,10 @@ export default function Page() {
         updatedAt: new Date().toISOString(),
       },
       {
-        onSuccess: () => setEdit(false),
+        onSuccess: () => {
+          setEdit(false)
+          setFlash({ id: Date.now(), message: "Post updated successfully!" });
+        },
       }
     );
   };
@@ -59,7 +73,12 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen items-start justify-center px-4 py-8">
+    <div className="flex flex-col min-h-screen items-center justify-start px-4 py-8 gap-y-4">
+      {flash && (
+        <div className="flex w-full max-w-lg">
+          <Alert key={flash.id} message={flash.message} type="success" />
+        </div>
+      )}
       <form className="w-full max-w-lg space-y-6 rounded-xl bg-base-100 p-6 shadow-2xl">
         <h1 className="text-2xl font-semibold">Edit Post</h1>
 
@@ -98,7 +117,7 @@ export default function Page() {
               <button
                 type="button"
                 className="btn btn-error md:w-28"
-                onClick={handleDelete}
+                onClick={() => modal.current?.showModal()}
               >
                 Delete
               </button>
@@ -126,6 +145,26 @@ export default function Page() {
           )}
         </div>
       </form>
+      <div className="flex w-full max-w-lg">
+        <BackButton />
+      </div>
+
+      <dialog ref={modal} className="modal">
+        <div className="modal-box text-center md:w-1/3">
+          <h3 className="font-bold text-lg">Delete Post?</h3>
+          <div className="modal-action">
+            <form method="dialog" className="w-full flex justify-between items-center">
+              <button className="btn btn-neutral w-1/3">Cancel</button>
+              <button
+                onClick={handleDelete}
+                className="btn btn-error w-1/3"
+              >
+                <Trash size={16} /> Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

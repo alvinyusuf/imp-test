@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/back-button";
 import { useCreatePost } from "@/hooks/useCreatePost";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -36,10 +37,9 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen items-start justify-center px-4 py-8">
+    <div className="flex flex-col min-h-screen items-center justify-start px-4 py-8 gap-y-4">
       <form className="w-full max-w-lg space-y-6 rounded-xl bg-base-100 p-6 shadow-2xl">
         <h1 className="text-2xl font-semibold">Add New Post</h1>
-
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <label className="w-full md:w-32">Title</label>
           <input
@@ -79,6 +79,9 @@ export default function Page() {
           </button>
         </div>
       </form>
+      <div className="flex w-full max-w-lg">
+        <BackButton />
+      </div>
     </div>
   );
 }
