@@ -40,29 +40,3 @@ export async function loginUser(input: {
 
   return tokenResponseSchema.parse(json);
 }
-
-export async function logoutUser() {
-  const access = getCookie('access_token');
-  const refresh = getCookie('refresh_token');
-
-  if (!access || !refresh) return;
-
-  await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/logout/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${access}`,
-    },
-    body: JSON.stringify({ refresh }),
-  });
-
-  document.cookie = 'access_token=; path=/; max-age=0';
-  document.cookie = 'refresh_token=; path=/; max-age=0';
-}
-
-function getCookie(name: string) {
-  const match = document.cookie
-    .split('; ')
-    .find((c) => c.startsWith(`${name}=`));
-  return match ? match.split('=')[1] : null;
-}
