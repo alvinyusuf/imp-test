@@ -6,7 +6,6 @@ import React, { useState } from "react";
 
 export default function Page() {
   const router = useRouter();
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -20,19 +19,14 @@ export default function Page() {
 
   const handleSave = (e: React.MouseEvent) => {
     e.preventDefault();
-
     if (!title.trim() || !content.trim()) {
       alert("Title and content are required.");
       return;
     }
-
     createPost(
       { title, content },
       {
-        onSuccess: (data) => {
-          console.log("Post created:", data);
-          router.push(`/`);
-        },
+        onSuccess: () => router.push("/"),
         onError: (err) => {
           console.error("Create failed:", err.message);
           alert("Gagal membuat post.");
@@ -42,36 +36,42 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-screen h-screen">
-      <h1 className="text-2xl mb-4">Add New Post</h1>
-      <form className="flex flex-col w-4/12 shadow-2xl rounded-xl p-4 gap-y-4">
-        <div className="flex justify-between items-center">
-          <label className="label w-1/3">Title</label>
+    <div className="flex min-h-screen items-start justify-center px-4 py-8">
+      <form className="w-full max-w-lg space-y-6 rounded-xl bg-base-100 p-6 shadow-2xl">
+        <h1 className="text-2xl font-semibold">Add New Post</h1>
+
+        <div className="flex flex-col md:flex-row md:items-center gap-3">
+          <label className="w-full md:w-32">Title</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered py-1 md:py-0 flex-1"
             placeholder="Enter post title"
           />
         </div>
 
-        <div className="flex justify-between items-center">
-          <label className="label w-1/3">Content</label>
+        <div className="flex flex-col md:flex-row md:items-start gap-3">
+          <label className="w-full md:w-32 pt-2">Content</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="textarea textarea-bordered w-full max-w-xs"
+            className="textarea textarea-bordered flex-1 min-h-[140px]"
             placeholder="Enter post content"
           />
         </div>
 
-        <div className="flex justify-between items-center">
-          <button className="btn btn-neutral" onClick={handleCancel}>
+        <div className="flex flex-col-reverse md:flex-row justify-end gap-3">
+          <button
+            type="button"
+            className="btn btn-neutral md:w-28"
+            onClick={handleCancel}
+          >
             Cancel
           </button>
           <button
-            className="btn btn-primary"
+            type="submit"
+            className="btn btn-primary md:w-28"
             onClick={handleSave}
             disabled={isPending}
           >

@@ -46,9 +46,7 @@ export default function Page() {
         updatedAt: new Date().toISOString(),
       },
       {
-        onSuccess: () => {
-          setEdit(false);
-        },
+        onSuccess: () => setEdit(false),
       }
     );
   };
@@ -56,51 +54,50 @@ export default function Page() {
   const handleDelete = (e: React.MouseEvent) => {
     e.preventDefault();
     deletePost(postId, {
-      onSuccess: () => {
-        router.push("/");
-      },
+      onSuccess: () => router.push("/"),
     });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-screen h-screen">
-      <h1 className="text-2xl mb-4">Edit Post</h1>
-      <form className="flex flex-col w-4/12 shadow-2xl rounded-xl p-4 gap-y-4">
-        <div className="flex justify-between items-center">
-          <label className="label w-1/3">Title</label>
+    <div className="flex min-h-screen items-start justify-center px-4 py-8">
+      <form className="w-full max-w-lg space-y-6 rounded-xl bg-base-100 p-6 shadow-2xl">
+        <h1 className="text-2xl font-semibold">Edit Post</h1>
+
+        <div className="flex flex-col md:flex-row md:items-center gap-3">
+          <label className="w-full md:w-32">Title</label>
           <input
             type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered flex-1 py-1 md:py-0"
             disabled={!edit}
           />
         </div>
 
-        <div className="flex justify-between items-center">
-          <label className="label w-1/3">Content</label>
+        <div className="flex flex-col md:flex-row md:items-start gap-3">
+          <label className="w-full md:w-32 pt-2">Content</label>
           <textarea
             value={content}
             onChange={e => setContent(e.target.value)}
-            className="textarea textarea-bordered w-full max-w-xs"
+            className="textarea textarea-bordered flex-1 min-h-[140px]"
             disabled={!edit}
           />
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row-reverse justify-start gap-3">
           {!edit ? (
             <>
               <button
-                className="btn btn-warning"
-                onClick={e => {
-                  e.preventDefault();
-                  setEdit(true);
-                }}
+                type="button"
+                className="btn btn-warning md:w-28"
+                onClick={() => setEdit(true)}
               >
                 Edit
               </button>
+
               <button
-                className="btn btn-error"
+                type="button"
+                className="btn btn-error md:w-28"
                 onClick={handleDelete}
               >
                 Delete
@@ -108,16 +105,23 @@ export default function Page() {
             </>
           ) : (
             <>
-              <button className="btn btn-neutral" onClick={handleCancel}>
-                Cancel
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={handleSave}
-                disabled={isPending}
-              >
-                {isPending ? "Saving..." : "Save"}
-              </button>
+              <div className="flex flex-col-reverse md:flex-row gap-3 w-full md:w-auto">
+                <button
+                  type="button"
+                  className="btn btn-neutral md:w-28"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary md:w-28"
+                  onClick={handleSave}
+                  disabled={isPending}
+                >
+                  {isPending ? "Saving..." : "Save"}
+                </button>
+              </div>
             </>
           )}
         </div>
