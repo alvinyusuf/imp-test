@@ -27,6 +27,9 @@ export default function Posts() {
       onSuccess: () => {
         console.log(`Post with id ${id} deleted successfully`)
       },
+      onError: (error: Error) => {
+        console.error(`Failed to delete post with id ${id}:`, error.message)
+      }
     })
   }, [deletePost])
 

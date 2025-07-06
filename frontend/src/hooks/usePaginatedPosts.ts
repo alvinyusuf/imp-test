@@ -16,7 +16,7 @@ export const usePaginatedPosts = (page: number) => {
   return useQuery({
     queryKey: ["posts", page],
     queryFn: async (): Promise<ApiResponse['data']> => {
-      const response = await fetch(`http://localhost:8000/api/posts?page=${page}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts?page=${page}`, {
         cache: "no-store",
       });
       const json = await response.json();

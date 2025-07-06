@@ -10,7 +10,7 @@ export const usePost = (id: number) => {
   return useQuery({
     queryKey: ["posts", id],
     queryFn: async (): Promise<ApiResponse['data']> => {
-      const response = await fetch(`http://localhost:8000/api/posts/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts/${id}`, {
         cache: "no-store",
       });
       const json = await response.json();

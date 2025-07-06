@@ -8,7 +8,7 @@ export const useCreatePost = () => {
 
   return useMutation({
     mutationFn: async (newPost: CreatePayload): Promise<Post> => {
-      const res = await fetch("http://localhost:8000/api/posts", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

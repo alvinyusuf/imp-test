@@ -10,7 +10,7 @@ export const useUpdatePost = () => {
 
   return useMutation({
     mutationFn: async ({ id, ...post }: UpdatePayload): Promise<Post> => {
-      const res = await fetch(`http://localhost:8000/api/posts/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),
