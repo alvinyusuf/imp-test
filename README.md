@@ -37,16 +37,16 @@ cp .env.example .env
 
 php artisan key:generate
 
-php artisan migrate
+php artisan migrate --seed      # Yes saja untuk membuat db sqlite baru
 
-php artisan serve #Backend Ready 
+php artisan serve               # Backend Ready 
 ```
 
 # Frontend (NextJS)
 ```
 cd frontend
 npm i
-npm run dev #Frontend Ready
+npm run dev                      # Frontend Ready
 ```
 
 # Auth (Django)
@@ -63,7 +63,7 @@ env\Scripts\activate
 pip install -r requirements.txt
 
 python manage.py makemigrations
-python manage.py migrate # Yes saja untuk membuat db sqlite baru
+python manage.py migrate
 python manage.py runserver 5000 # Auth Ready
 ```
 
