@@ -1,20 +1,15 @@
-import { Post } from "@/types/post";
+import { GetPostResponse } from "@/schemas/posts/post";
 import { useQuery } from "@tanstack/react-query";
-
-type ApiResponse = {
-  message: string;
-  data: Post;
-}
 
 export const usePost = (id: number) => {
   return useQuery({
     queryKey: ["posts", id],
-    queryFn: async (): Promise<ApiResponse['data']> => {
+    queryFn: async (): Promise<GetPostResponse> => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/posts/${id}`, {
         cache: "no-store",
       });
       const json = await response.json();
-      return json.data;
+      return json.data as GetPostResponse;
     },
   })
 }

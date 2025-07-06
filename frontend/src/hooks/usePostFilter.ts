@@ -1,10 +1,5 @@
+import { Post } from "@/schemas/posts/post"
 import { useMemo } from "react"
-
-type Post = {
-  id: string
-  title: string
-  content: string
-}
 
 export const usePostFilter = (posts: Post[], searchTerm: string) => {
   return useMemo(() => {

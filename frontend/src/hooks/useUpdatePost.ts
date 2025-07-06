@@ -1,9 +1,5 @@
-import { Post } from "@/types/post";
+import { Post, UpdatePayload } from "@/schemas/posts/post";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-type UpdatePayload = {
-  id: number;
-} & Pick<Post, "title" | "content" | "updatedAt">;
 
 export const useUpdatePost = () => {
   const qc = useQueryClient();
