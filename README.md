@@ -1,4 +1,4 @@
-epositori ini merupakan bagian dari asesmen Software Engineer untuk PT Informatika Media Pratama. Project ini terbagi menjadi tiga bagian utama:
+## Repositori ini merupakan bagian dari asesmen Software Engineer untuk PT Informatika Media Pratama. Project ini terbagi menjadi tiga bagian utama:
 
 1. **Frontend** (Next.js)
 2. **Backend** (Laravel)
@@ -6,179 +6,173 @@ epositori ini merupakan bagian dari asesmen Software Engineer untuk PT Informati
 
 ---
 
+## Requirements
+- Git
+- Node.js: v18.x atau v20.x
+- npm
+- PHP >= 8.2
+- Composer
+- Python >= 3.10
+- pip
+- venv (direkomendasikan)
+
 ## 🔧 Instalasi dan Setup
 
-### 1. Auth API (Django)
-
-#### Prasyarat
-- Python >= 3.8
-- pip
-- virtualenv
-
-#### Instalasi
-
 ```bash
-git clone <repo-url>
+git clone https://github.com/alvinyusuf/imp-test.git
+
+cd imp-test
+
+```
+
+# Backend (laravel)
+```
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+
+php artisan migrate
+
+php artisan serve #Backend Ready 
+```
+
+# Frontend (NextJS)
+```
+cd frontend
+npm i
+npm run dev #Frontend Ready
+```
+
+# Auth (Django)
+```
 cd auth-service
 python -m venv env
+
 # Linux
 source env/bin/activate
 # Windows 
 env\\Scripts\\activate
 
 pip install -r requirements.txt
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
 
-### 🚀 Endpoint Dokumentasi
-Register
-POST /api/auth/register/
+
+# 🧪 Testing
+Gunakan Postman / Thunder Client untuk testing auth
+Untuk CRUD backend (laravel) sudah bisa langsung dicoba melalui website frontend (NextJS)
+default akses frontend
+```
+http://127.0.0.1:3000
+```
+
+# 🚀 Endpoint Dokumentasi
+
+# Auth
+### Register
+POST
+```
+http://127.0.0.1:8000/api/auth/register/
+```
 
 Body:
-
-json
-Always show details
-
-Copy
-{
-  "username": "example",
-  "email": "example@mail.com",
-  "password": "yourpassword"
-}
-Response:
-
-json
-Always show details
-
-Copy
-{
-  "message": "User registered successfully",
-  "user": {
+```
+  {
     "username": "example",
-    "email": "example@mail.com"
+    "email": "example@mail.com",
+    "password": "yourpassword"
   }
-}
-Login
-POST /api/auth/login/
+```
+
+Response:
+<pre>
+  {
+    "message": "User registered successfully",
+    "user": {
+      "username": "example",
+      "email": "example@mail.com"
+    }
+  }
+</pre>
+
+### Login
+POST
+```
+http://127.0.0.1:8000/api/auth/login/
+```
 
 Body:
+```  
+  { 
+    "username": "example",
+    "password": "yourpassword"
+  }
+```
 
-json
-Always show details
-
-Copy
-{
-  "username": "example",
-  "password": "yourpassword"
-}
 Response:
+<pre>
+  {
+    "access": "access_token_here",
+    "refresh": "refresh_token_here"
+  }
+</pre>
 
-json
-Always show details
-
-Copy
-{
-  "access": "access_token_here",
-  "refresh": "refresh_token_here"
-}
-Logout
-POST /api/auth/logout/
+### Logout
+POST
+```
+http://127.0.0.1:8000/api/auth/logout/
+```
 
 Headers:
-
-makefile
-Always show details
-
-Copy
-Authorization: Bearer <access_token>
-Body:
-
-json
-Always show details
-
-Copy
-{
-  "refresh_token": "refresh_token_here"
-}
-Token Verify
-POST /api/auth/token/verify/
+```
+  Authorization: Bearer <access_token>
+```
 
 Body:
+```
+  {
+    "refresh_token": "refresh_token_here"
+  }
+```
 
-json
-Always show details
+### Token Verify
+POST
+```
+http://127.0.0.1:8000/api/auth/verify/
+```
 
-Copy
-{
-  "token": "access_token_here"
-}
+Body:
+```
+  {
+    "token": "access_token_here"
+  }
+```
+
 Response:
+<pre>
+  {}
+</pre>
 
-json
-Always show details
-
-Copy
-{}
-Token Refresh
-POST /api/auth/token/refresh/
+### Token Refresh
+POST
+```
+http://127.0.0.1:8000/api/auth/refresh/
+```
 
 Body:
+```
+  {
+    "refresh": "refresh_token_here"
+  }
+```
 
-json
-Always show details
-
-Copy
-{
-  "refresh": "refresh_token_here"
-}
 Response:
-
-json
-Always show details
-
-Copy
-{
-  "access": "new_access_token"
-}
-🧪 Testing
-Gunakan Postman / Thunder Client dengan mengikuti urutan:
-
-Register
-
-Login
-
-Gunakan access token untuk test endpoint yang butuh autentikasi.
-
-Logout untuk blacklist token refresh.
-
-🧱 Struktur Folder
-bash
-Always show details
-
-Copy
-auth-service/
-│
-├── authentication/
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── serializers.py
-│   ├── urls.py
-│   └── views.py
-│
-├── auth/
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-│
-├── manage.py
-└── requirements.txt
-✍️ Catatan
-rest_framework_simplejwt digunakan sebagai library untuk JWT.
-
-Menggunakan custom user model.
-
-Tidak menggunakan token DRF bawaan (Token.objects.get_or_create) karena menggunakan JWT sepenuhnya.
-""")
+<pre>
+  {
+    "access": "new_access_token"
+  }
+</pre>
