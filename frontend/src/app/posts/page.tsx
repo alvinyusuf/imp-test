@@ -3,9 +3,10 @@
 import { useDeletePost } from "@/hooks/useDeletePost"
 import { usePaginatedPosts } from "@/hooks/usePaginatedPosts"
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { ChevronLeft, ChevronRight, Pencil, Plus, Trash } from "lucide-react"
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useMemo, useState } from "react"
+import PostActions from "./post-action"
 
 type Post = {
   id: string
@@ -55,20 +56,10 @@ export default function Posts() {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <Link
-            href={`/posts/${row.original.id}`}
-            className="btn btn-sm btn-warning"
-          >
-            <Pencil size={16} /> Edit
-          </Link>
-          <button
-            onClick={(e) => handleDelete(e, Number(row.original.id))}
-            className="btn btn-sm btn-error"
-          >
-            <Trash size={16} /> Delete
-          </button>
-        </div>
+        <PostActions
+          id={row.original.id}
+          onDelete={handleDelete}
+        />
       ),
     }),
   ], [handleDelete])
