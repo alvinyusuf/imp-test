@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "frontend": "npm run --prefix frontend dev",
+    "backend": "cd backend && php artisan serve",
+    "auth": "cmd /c \"auth-service\\env\\Scripts\\activate && python auth-service\\manage.py runserver 5000\"",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\" \"npm run auth\"",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "node server.js",
+    "start:client": "cd client && npm start"    
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
