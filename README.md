@@ -1,12 +1,19 @@
-## Repositori ini merupakan bagian dari asesmen Software Engineer untuk PT Informatika Media Pratama. Project ini terbagi menjadi tiga bagian utama:
+# 🔧 Multi-Service App Playground (Next.js + Laravel + Django)
 
-1. **Frontend** (Next.js)
-2. **Backend** (Laravel)
-3. **Auth API** (Django + JWT)
+Repositori ini gua bikin sebagai playground pribadi buat belajar integrasi antar service (frontend, backend, auth API) dengan stack yang beda-beda. Proyek ini bukan untuk production, tapi buat eksperimen, riset, dan pemahaman arsitektur microservice secara praktikal.
 
 ---
 
-## Requirements
+## 🧱 Stack yang Dipakai
+
+1. **Frontend** — [Next.js](https://nextjs.org/)
+2. **Backend** — [Laravel](https://laravel.com/)
+3. **Auth API** — [Django + JWT](https://www.django-rest-framework.org/)
+
+---
+
+## 📦 Tools yang Dibutuhin
+
 - Git
 - Node.js: v18.x atau v20.x
 - npm
@@ -14,172 +21,61 @@
 - Composer
 - Python >= 3.10
 - pip
-- venv (direkomendasikan)
+- venv (disarankan buat Django)
 
-## 🔧 Instalasi dan Setup
+---
 
-### Pastikan port 3000, 5000, 8000 kosong untuk menjalankan service ketiganya
+## ⚙️ Instalasi dan Setup
+
+### 🚨 Note: Pastikan port 3000, 5000, dan 8000 kosong
 
 ```bash
 git clone https://github.com/alvinyusuf/imp-test.git
-
 cd imp-test
-
 ```
 
-# Backend (laravel)
+## 🛠️ Backend (Laravel)
 ```
 cd backend
 composer install
+```
 
-# Windows
+# Untuk Windows
+```
 copy .env.example .env
-# Linux
+```
+# Untuk Linux/Mac
+```
 cp .env.example .env
 
 php artisan key:generate
+php artisan migrate --seed      # Pilih "yes" saat diminta buat sqlite
 
-php artisan migrate --seed      # Yes saja untuk membuat db sqlite baru
-
-php artisan serve               # Backend Ready 
+php artisan serve               # Jalanin di http://127.0.0.1:8000
 ```
 
-# Frontend (NextJS)
+## 🖼️ Frontend (Next.js)
 ```
 cd frontend
-npm i
-npm run dev                      # Frontend Ready
+npm install
+npm run dev                     # Jalanin di http://localhost:3000
 ```
 
-# Auth (Django)
-### Run di port 5000 (supaya tidak bentrok dengan port backend dan sesuai dengan .env frontend)
+## 🔐 Auth API (Django + JWT)
+| Disetup di port 5000 supaya gak tabrakan sama Laravel
 ```
 cd auth-service
 python -m venv env
 
-# Linux
-source env/bin/activate
-# Windows 
+# Windows
 env\Scripts\activate
+
+# Linux/Mac
+source env/bin/activate
 
 pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver 5000 # Auth Ready
+python manage.py runserver 5000
 ```
-
-
-# 🧪 Testing
-Gunakan Postman / Thunder Client untuk testing auth
-default akses frontend
-```
-http://127.0.0.1:3000
-```
-
-# 🚀 Endpoint Dokumentasi
-
-# Auth
-### Register
-POST
-```
-http://127.0.0.1:8000/api/auth/register/
-```
-
-Body:
-```
-  {
-    "username": "example",
-    "email": "example@mail.com",
-    "password": "yourpassword"
-  }
-```
-
-Response:
-<pre>
-  {
-    "message": "User registered successfully",
-    "user": {
-      "username": "example",
-      "email": "example@mail.com"
-    }
-  }
-</pre>
-
-### Login
-POST
-```
-http://127.0.0.1:8000/api/auth/login/
-```
-
-Body:
-```  
-  { 
-    "username": "example",
-    "password": "yourpassword"
-  }
-```
-
-Response:
-<pre>
-  {
-    "access": "access_token_here",
-    "refresh": "refresh_token_here"
-  }
-</pre>
-
-### Logout
-POST
-```
-http://127.0.0.1:8000/api/auth/logout/
-```
-
-Headers:
-```
-  Authorization: Bearer <access_token>
-```
-
-Body:
-```
-  {
-    "refresh_token": "refresh_token_here"
-  }
-```
-
-### Token Verify
-POST
-```
-http://127.0.0.1:8000/api/auth/verify/
-```
-
-Body:
-```
-  {
-    "token": "access_token_here"
-  }
-```
-
-Response:
-<pre>
-  {}
-</pre>
-
-### Token Refresh
-POST
-```
-http://127.0.0.1:8000/api/auth/refresh/
-```
-
-Body:
-```
-  {
-    "refresh": "refresh_token_here"
-  }
-```
-
-Response:
-<pre>
-  {
-    "access": "new_access_token"
-  }
-</pre>
